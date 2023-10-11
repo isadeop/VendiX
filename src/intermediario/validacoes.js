@@ -26,6 +26,7 @@ const emailSenhaPreenchido = async (req, res, next) => {
 }
 
 
+
 module.exports = {
   validarUsuario,
   emailSenhaPreenchido

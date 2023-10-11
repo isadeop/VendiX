@@ -1,7 +1,21 @@
-require('dotenv').config()
 const knex = require("../conexão");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+const listarCategorias = async (req, res) => {
+
+  try {
+    
+
+    const query = await knex("categorias")
+
+    return res.status(200).json(query)
+
+  } catch (error) {
+    
+    return res.status(500).json({ mensagem: 'Erro interno do servidor' })
+  }
+}
 
 
 const cadastrarUsuario = async (req, res) => {
@@ -53,13 +67,19 @@ const loginUsuario = async (req, res) => {
     return res.json({ usuarioLogado, token })
 
   } catch (error) {
-    console.log(error)
 
     return res.status(500).json({ mensagem: "Erro interno do servidor" })
   }
 }
+const detalharUsuario = async (req, res) => {
+
+  return res.status(200).json(req.usuario)
+
+}
 
 module.exports = {
+  listarCategorias,
   cadastrarUsuario,
-  loginUsuario
+  loginUsuario, 
+  detalharUsuario
 };
