@@ -21,15 +21,14 @@ O objetivo deste projeto é criar uma API para um PDV (Frente de Caixa).
 <strong> `Listar Categorias`</strong> 
 `GET\categorias`:
  Serão previamente cadastradas no Banco de Dados as categorias dos protudos. Está funcionalidade permite listar todas as categorias cadastradas
- <p> * Informática  * Celulares  * Beleza e Perfumaria * Mercado * Livros e Papelaria * Brinquedos * Moda * Bebê * Jogos </p>
+ <p> * Informática  * Celulares  * Beleza e Perfumaria * Mercado * Livros e Papelaria * Brinquedos * Moda * Bebê * Jogos 
+ 
+ Exemplo de resposta da requisição:</p>
+
+
+![respostaListarCategorias](./src/assets/respostaListarCategorias.png)
 
  
-## 📋 Pré-requisitos
+## 📋 Como rodar este projeto
 
-De que coisas você precisa para instalar o software e como instalá-lo?
 
-### 🔧 Instalação
-
-Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
-
-Diga como essa etapa será:
