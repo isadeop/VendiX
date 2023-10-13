@@ -1,4 +1,4 @@
-# VendiX
+<h1 align="center"> VendiX </h1>
 ## PDV construído para atividade avaliativa do módulo 05. 
 ### Trello utilizado pelo grupo: https://trello.com/b/UznHg8RW/five-devs-desenvolvimento-pdv
 
