@@ -1,11 +1,30 @@
 <h1 align="center"> VendiX </h1>
-## PDV construído para atividade avaliativa do módulo 05. 
-### Trello utilizado pelo grupo: https://trello.com/b/UznHg8RW/five-devs-desenvolvimento-pdv
+<p align="center">
+<img loading="lazy" src="http://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=GREEN&style=for-the-badge"/>
+</p>
 
-## 🚀 Começando
+## 🚀 Descrição do Projeto
+O objetivo deste projeto é criar uma API para um PDV (Frente de Caixa). 
+<p>Este projeto foi proposto como desafio final do curso de Desenvolvimento de Software com Foco em BackEnd, ofertado pela Cubos Academy em parceria com o Ifood. <p></p>
 
-Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+<i>Trello utilizado pelo grupo: https://trello.com/b/UznHg8RW/five-devs-desenvolvimento-pdv</i>
 
-### Grupo 1: Alaene, Amanda, Cristiane, Helen e Isadora.
+## ✒️ Autores
 
+* **Alaene Pereira** - https://github.com/alaenepereira
+* **Amanda Santos** - https://github.com/amandasantos05
+* **Cristiane Nutini** - https://github.com/CrisNutini
+* **Helen Cristina Araujo** - https://github.com/helen-araujo
+* **Isadora de Oliveira** - https://github.com/isadeop
 
+## :hammer: Funcionalidades do projeto
+`Listar Categorias`: Serão previamente cadastradas no banco de dados as categorias de protudos. Está funcionalidade permite 
+## 📋 Pré-requisitos
+
+De que coisas você precisa para instalar o software e como instalá-lo?
+
+### 🔧 Instalação
+
+Uma série de exemplos passo-a-passo que informam o que você deve executar para ter um ambiente de desenvolvimento em execução.
+
+Diga como essa etapa será:
