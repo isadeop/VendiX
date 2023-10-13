@@ -18,7 +18,12 @@ O objetivo deste projeto é criar uma API para um PDV (Frente de Caixa).
 * **Isadora de Oliveira** - https://github.com/isadeop
 
 ## :hammer: Funcionalidades do projeto
-`Listar Categorias`: Serão previamente cadastradas no banco de dados as categorias de protudos. Está funcionalidade permite 
+<strong> `Listar Categorias`</strong> 
+`GET\categorias`:
+ Serão previamente cadastradas no Banco de Dados as categorias dos protudos. Está funcionalidade permite listar todas as categorias cadastradas
+ <p> * Informática  * Celulares  * Beleza e Perfumaria * Mercado * Livros e Papelaria * Brinquedos * Moda * Bebê * Jogos </p>
+
+ 
 ## 📋 Pré-requisitos
 
 De que coisas você precisa para instalar o software e como instalá-lo?
