@@ -19,7 +19,7 @@ const validarToken = async (req, res, next) => {
       return res.status(404).json({ mensagem: 'O usuário não está autenticado!' })
     }
 
-    const {senha, ...usuario} = rows[0]
+    const { senha, ...usuario } = usuarioAutorizado
 
     req.usuario = usuario
 
