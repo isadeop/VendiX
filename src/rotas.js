@@ -1,5 +1,5 @@
 const express = require('express')
-const { cadastrarUsuario, loginUsuario, listarCategorias, detalharUsuario } = require('./controladores/usuarios')
+const { cadastrarUsuario, loginUsuario, listarCategorias, detalharUsuario, editarUsuario } = require('./controladores/usuarios')
 const { validarUsuario, emailSenhaPreenchido } = require('./intermediario/validacoes')
 const validarToken = require('./intermediario/autenticacao')
 
@@ -12,6 +12,7 @@ rotas.post('/login', emailSenhaPreenchido, loginUsuario)
 rotas.use(validarToken)
 
 rotas.get('/usuario', detalharUsuario)
+rotas.put('/usuario', validarUsuario, editarUsuario)
 
 
 module.exports = rotas
