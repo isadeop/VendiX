@@ -1,6 +1,7 @@
 const knex = require("../conexão");
+const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+
 
 const listarCategorias = async (req, res) => {
 
@@ -53,22 +54,27 @@ const loginUsuario = async (req, res) => {
     if (!usuario) {
       return res.status(404).json({ mensagem: "O usuário não pode ser encontrado." })
     }
-
+    
     const { senha: senhaCadastrada, ...usuarioLogado } = usuario
 
     const senhaCorreta = await bcrypt.compare(senha, senhaCadastrada)
-
+    
     if (!senhaCorreta) {
       return res.status(400).json({ mensagem: "Email ou senha inválidos." })
     }
 
-    const token = jwt.sign({ id: usuario.id }, process.env.SENHA_JWT, { expiresIn: '8h' })
+    const chaveSecreta = process.env.SENHA_JWT;
 
-    return res.json({ usuarioLogado, token })
+
+    const token = jwt.sign({ id: usuario.id }, chaveSecreta, { expiresIn: '8h' })
+
+    console.log(token)
+    
+    return res.status(200).json({ usuario: usuarioLogado, token})
 
   } catch (error) {
 
-    console.log(error.message)
+    console.log(error)
     return res.status(500).json({ mensagem: "Erro interno do servidor" })
 
   }
@@ -81,7 +87,9 @@ const detalharUsuario = async (req, res) => {
 
 const editarUsuario = async(req, res)=>{
   const {nome, email, senha} = req.body;
+  console.log('r')
   const {id} = req.usuario
+  console.log('r')
 
   try {
     const usuarioExiste = await knex('usuario').where({id}).first();
@@ -89,7 +97,7 @@ const editarUsuario = async(req, res)=>{
     if(!usuarioExiste){
       return res.status(404).json('Usuario não encontrado');
     }
-
+    
     const senhaCriptografada = await bcrypt.hash(senha, 10);
 
     if(email !== req.usuario.email){
@@ -100,6 +108,7 @@ const editarUsuario = async(req, res)=>{
       }
 
     }
+    
 
     const usuarioAtualizado = await knex("usuarios")
       .where({id})
@@ -113,6 +122,7 @@ const editarUsuario = async(req, res)=>{
     return res.status(201).json('Usuario Atualizado com sucesso');
     } catch (error) {
       console.error(error.message);
+      return res.status(500).json({ mensagem: "Erro interno do servidor" })
     }
   };
   

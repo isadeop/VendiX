@@ -12,7 +12,8 @@ rotas.post('/login', emailSenhaPreenchido, loginUsuario)
 rotas.use(validarToken)
 
 rotas.get('/usuario', detalharUsuario)
-rotas.put('/usuario', validarUsuario, editarUsuario)
+rotas.put('/usuario', validarToken, editarUsuario)
+
 
 
 module.exports = rotas
