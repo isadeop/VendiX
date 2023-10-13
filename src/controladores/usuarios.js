@@ -68,7 +68,9 @@ const loginUsuario = async (req, res) => {
 
   } catch (error) {
 
+    console.log(error.message)
     return res.status(500).json({ mensagem: "Erro interno do servidor" })
+
   }
 }
 const detalharUsuario = async (req, res) => {
@@ -77,9 +79,48 @@ const detalharUsuario = async (req, res) => {
 
 }
 
+const editarUsuario = async(req, res)=>{
+  const {nome, email, senha} = req.body;
+  const {id} = req.usuario
+
+  try {
+    const usuarioExiste = await knex('usuario').where({id}).first();
+
+    if(!usuarioExiste){
+      return res.status(404).json('Usuario não encontrado');
+    }
+
+    const senhaCriptografada = await bcrypt.hash(senha, 10);
+
+    if(email !== req.usuario.email){
+      const emailUsuarioExiste = await knex("usuarios").where({ email }).first();
+
+      if(emailUsuarioExiste){
+        return res.status(404).json('Já existe usuário cadastrado com o e-mail informado.')
+      }
+
+    }
+
+    const usuarioAtualizado = await knex("usuarios")
+      .where({id})
+      .update({ nome, email, senha: senhaCriptografada })
+      .returning("*");
+
+    if(!usuarioAtualizado){
+      return res.status(400).json('O usuario não foi atualizado')
+    }
+    
+    return res.status(201).json('Usuario Atualizado com sucesso');
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+  
+
 module.exports = {
   listarCategorias,
   cadastrarUsuario,
   loginUsuario, 
-  detalharUsuario
+  detalharUsuario,
+  editarUsuario
 };
