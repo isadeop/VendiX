@@ -11,8 +11,8 @@ rotas.post('/login', emailSenhaPreenchido, loginUsuario)
 
 rotas.use(validarToken)
 
-rotas.get('/usuario', detalharUsuario)
-rotas.put('/usuario', validarToken, editarUsuario)
+rotas.get('/usuario',  detalharUsuario)
+rotas.put('/usuario', validarUsuario, editarUsuario)
 
 
 
