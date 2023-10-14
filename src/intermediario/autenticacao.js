@@ -26,7 +26,7 @@ const validarToken = async (req, res, next) => {
     next()
 
   } catch (error) {
-    return res.status(500).json({ mensagem: 'Erro interno do servidorrr' })
+    return res.status(500).json({ mensagem: 'Erro interno do servidorr' })
   }
 }
 module.exports = validarToken
