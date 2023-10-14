@@ -12,8 +12,11 @@ O objetivo deste projeto é criar uma API para um PDV (Frente de Caixa).
 ## Índice
 - <a href="#hammer-funcionalidades-do-projeto"> Funcionalidades do projeto </a>
 - <a href="#📋-como-rodar-este-projeto"> Como rodar este projeto</a>
+
 - <a href="#🛠️-tecnologias-utilizadas">Tecnologias utilizadas</a>
+
 - <a href="#controle-de-versão"> Controle de versão </a>
+
 - <a href="#✒️-autores"> Autores </a>
 
 ## :hammer: Funcionalidades do projeto
