@@ -7,7 +7,7 @@ const validarToken = require('./intermediario/autenticacao')
 
 const rotas = express()
 
-rotas.get('/categorias', listarCategorias)
+rotas.get('/categoria', listarCategorias)
 rotas.post('/usuario', validarUsuario(schemaCadastro), cadastrarUsuario)
 rotas.post('/login', validarUsuario(schemaLogin), loginUsuario)
 

@@ -29,9 +29,9 @@ O objetivo deste projeto é criar uma API para um PDV (Frente de Caixa).
 ## :hammer: Funcionalidades do projeto
 
 <strong> `Listar categorias`</strong>
-`GET\categorias`:
+`GET\categoria`:
 
-<i>https://funny-sun-hat-bull.cyclic.cloud/categorias</i>
+<i>https://funny-sun-hat-bull.cyclic.cloud/categoria</i>
 
 Permite listar todas as categorias dos produtos cadastradas no banco de dados.
 
