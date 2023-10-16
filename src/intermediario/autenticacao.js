@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const knex = require("../conexão");
+const knex = require('../conexão')
 
 const validarToken = async (req, res, next) => {
   const { authorization } = req.headers
@@ -9,7 +9,7 @@ const validarToken = async (req, res, next) => {
   }
 
   try {
-    const token = authorization.replace('Bearer ', '').trim();
+    const token = authorization.replace('Bearer ', '').trim()
 
     const { id } = jwt.verify(token, process.env.SENHA_JWT)
 
@@ -26,7 +26,7 @@ const validarToken = async (req, res, next) => {
     next()
 
   } catch (error) {
-    return res.status(500).json({ mensagem: 'Erro interno do servidorr' })
+    return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
   }
 }
 module.exports = validarToken
