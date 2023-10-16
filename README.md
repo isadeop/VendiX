@@ -7,6 +7,8 @@
 
 O objetivo deste projeto é criar uma API para um PDV (Frente de Caixa).
 
+<i>Link do deploy: https://funny-sun-hat-bull.cyclic.cloud/</i>
+
 <!--
 <p>Este projeto foi proposto como desafio final do curso de Desenvolvimento de Software com Foco em Backend, ofertado pela Cubos Academy em parceria com o Ifood.</p>
 
@@ -29,6 +31,8 @@ O objetivo deste projeto é criar uma API para um PDV (Frente de Caixa).
 <strong> `Listar categorias`</strong>
 `GET\categorias`:
 
+<i>https://funny-sun-hat-bull.cyclic.cloud/categorias</i>
+
 Permite listar todas as categorias dos produtos cadastradas no banco de dados.
 
  <p> * Informática  * Celulares  * Beleza e Perfumaria * Mercado * Livros e Papelaria * Brinquedos * Moda * Bebê * Jogos
@@ -38,12 +42,16 @@ Permite listar todas as categorias dos produtos cadastradas no banco de dados.
 <strong> `Cadastrar usuário`</strong>
 `POST\usuario`:
 
+<i>https://funny-sun-hat-bull.cyclic.cloud/usuario</i>
+
 Esta funcionalidade será utilizada para cadastrar um novo usuário no sistema.
 
 ![CadastrarUsuario](./src/assets/CadastrarUsuario.png)
 
 <strong> `Efetuar login do usuário`</strong>
 `POST\login`:
+
+<i>https://funny-sun-hat-bull.cyclic.cloud/login</i>
 
 Esta funcionalidade permite o usuário cadastrado realizar o login no sistema.
 
@@ -54,12 +62,16 @@ Esta funcionalidade permite o usuário cadastrado realizar o login no sistema.
 <strong> `Detalhar perfil do usuário`</strong>
 `GET\usuario`:
 
+<i>https://funny-sun-hat-bull.cyclic.cloud/usuario</i>
+
 Essa funcionalidade permite o usuário logado a visualizar os dados do seu próprio perfil, de acordo com a validação do token de autenticação.
 
 ![respostaDetalharUsuario](./src/assets/respostaDetalharUsuario.png)
 
 <strong> `Editar perfil do usuário logado`</strong>
 `PUT\usuario`:
+
+<i>https://funny-sun-hat-bull.cyclic.cloud/usuario</i>
 
 Essa funcionalidade permite o usuário logado atualizar informações de seu próprio cadastro, de acordo com a validação do token de autenticação.
 
@@ -68,6 +80,12 @@ Essa funcionalidade permite o usuário logado atualizar informações de seu pr�
 ## 📋 Como rodar este projeto
 
 ```bash
+
+# A aplicação pode ser acessada pelo link do Deploy.
+https://funny-sun-hat-bull.cyclic.cloud/
+
+# Segue abaixo outra maneira de acessar o VendiX.
+
 # Clone este repositório
 $ git clone https://github.com/isadeop/VendiX
 
@@ -81,6 +99,8 @@ $ npm install
 $ npm run start
 
 # A aplicação será iniciada na porta 3000: http://localhost:3000
+
+
 ```
 
 ## 🛠️ Tecnologias utilizadas
