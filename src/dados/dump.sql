@@ -25,7 +25,7 @@ values
 
 create table produtos (
 	id serial primary key,
-    descricao text not null,
+    descricao text not null unique,
     quantidade_estoque integer,
     valor integer,
     categoria_id integer references categorias(id)
