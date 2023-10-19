@@ -6,6 +6,8 @@ const schemaLogin = require('./schemas/schemaLogin')
 const validarToken = require('./intermediario/autenticacao')
 const schemaCadastroProduto = require('./schemas/schemaCadastroProduto')
 const { cadastrarProduto } = require('./controladores/produtos')
+const schemaCadastroCliente = require('./schemas/schemaCadastroCliente')
+const { cadastrarCliente } = require('./controladores/clientes')
 
 const rotas = express()
 
@@ -20,6 +22,8 @@ rotas.put('/usuario', validarUsuario(schemaCadastroUsuario), editarUsuario)
 
 rotas.post('/produto', validarUsuario(schemaCadastroProduto), cadastrarProduto)
 
+
+rotas.post('/cliente', validarUsuario(schemaCadastroCliente), cadastrarCliente)
 
 
 
