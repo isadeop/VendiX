@@ -1,6 +1,6 @@
 const joi = require('joi')
 
-const schemaCadastro = joi.object({
+const schemaCadastroUsuario = joi.object({
     nome: joi.string().required().messages({
         'any.required': 'O campo nome é obrigatório!',
         'string.empty': 'O campo nome é obrigatório!',
@@ -19,4 +19,4 @@ const schemaCadastro = joi.object({
     })
 })
 
-module.exports = schemaCadastro
+module.exports = schemaCadastroUsuario
