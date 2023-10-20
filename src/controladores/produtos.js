@@ -44,7 +44,32 @@ const excluirProduto = async (req,res) => {
 
 }
 
+const detalharProduto = async (req, res)=>{
+  const {id} = req.params
+
+  if(!id){
+    return res.status(400).json({mensagem:'O envio do ID é obrigatório.'})
+  }
+
+  try {  
+  const produtoExiste = await knex('produtos').where({ id }).first()
+  
+    if (!produtoExiste) {
+      return res.status(404).json({ mensagem:'Produto não encontrado.'})
+    }
+   
+    return res.status(200).json(produtoExiste)
+    
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({mensagem:'Erro interno do servidor.'})
+  }
+
+}
+
+
 module.exports = {
     cadastrarProduto,
-    excluirProduto
+    excluirProduto,
+    detalharProduto
 }
