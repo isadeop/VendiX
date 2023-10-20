@@ -21,8 +21,8 @@ rotas.get('/usuario', detalharUsuario)
 rotas.put('/usuario', validarUsuario(schemaCadastroUsuario), editarUsuario)
 
 rotas.post('/produto', validarUsuario(schemaCadastroProduto), cadastrarProduto)
-rotas.delete('/produto/:id', excluirProduto)
 rotas.get('/produto/:id', detalharProduto)
+rotas.delete('/produto/:id', excluirProduto)
 
 
 rotas.post('/cliente', validarUsuario(schemaCadastroCliente), cadastrarCliente)
