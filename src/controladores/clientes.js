@@ -30,7 +30,12 @@ const editarCliente = async(req, res)=>{
   const { id } = req.params
 
   try {
-    
+    /*
+    const numeroDeCaracteresCPF = cpf.length;
+    if(numeroDeCaracteresCPF!==11){
+      return res.status(404).json({ mensagem:'CPF inválido'})
+    }
+    */
     const clienteExiste = await knex('clientes').where({ id }).first()
 
     if (!clienteExiste) {
