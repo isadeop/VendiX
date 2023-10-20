@@ -21,6 +21,7 @@ const cadastrarCliente = async (req, res) => {
     return res.status(201).json(novoCliente)
 
   } catch (error) {
+    console.log(error.message)
     return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
   }
 }
@@ -60,8 +61,19 @@ const editarCliente = async (req, res) => {
   }
 }
 
+const listarClientes = async (req, res) => {
+  try {
+    const query = await knex('clientes').select('*')
+    console.log(query)
+    return res.status(200).json(query)
+  } catch (error) {
+    return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
+  }
+}
+
 module.exports = {
   cadastrarCliente,
-  editarCliente
+  editarCliente,
+  listarClientes
 }
 
