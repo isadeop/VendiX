@@ -64,7 +64,7 @@ const editarCliente = async (req, res) => {
 const listarClientes = async (req, res) => {
   try {
     const query = await knex('clientes').select('*')
-    console.log(query)
+   
     return res.status(200).json(query)
   } catch (error) {
     return res.status(500).json({ mensagem: 'Erro interno do servidor.' })

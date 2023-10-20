@@ -20,6 +20,25 @@ const cadastrarProduto = async (req, res) => {
 
 }
 
+const listarProdutos = async (req,res) =>{
+  try {
+    
+    const  {categoria_id}  = req.query;
+
+    const produtos = await knex('produtos')
+
+    if (!categoria_id) {
+      return res.status(400).json(produtos); 
+    }
+
+    const listarPorCategoria = await knex('produtos').where({ categoria_id })
+
+    return res.status(200).json(listarPorCategoria);
+  } catch (error) {
+   console.log(error.message);
+  }
+}
+
 const excluirProduto = async (req, res) => {
   const { id } = req.params
 
@@ -71,5 +90,6 @@ const detalharProduto = async (req, res) => {
 module.exports = {
   cadastrarProduto,
   excluirProduto,
-  detalharProduto
+  detalharProduto,
+  listarProdutos
 }
