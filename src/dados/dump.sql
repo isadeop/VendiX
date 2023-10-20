@@ -44,6 +44,7 @@ create table clientes (
     estado char
 );
 
+alter table clientes alter column estado type varchar(2)
 
 
 insert into produtos (descricao, quantidade_estoque, valor, categoria_id)
