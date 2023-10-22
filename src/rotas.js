@@ -1,34 +1,34 @@
 const express = require('express')
 const { cadastrarUsuario, loginUsuario, listarCategorias, detalharUsuario, editarUsuario } = require('./controladores/usuarios')
-const validarUsuario = require('./intermediario/validacaoUsuario')
+const validacao = require('./intermediario/validacao')
 const schemaCadastroUsuario = require('./schemas/schemaCadastroUsuario')
 const schemaLogin = require('./schemas/schemaLogin')
 const validarToken = require('./intermediario/autenticacao')
-const schemaCadastroProduto = require('./schemas/schemaCadastroProduto')
+const schemaProduto = require('./schemas/schemaProduto')
 const { cadastrarProduto, excluirProduto, detalharProduto, listarProdutos, editarProduto } = require('./controladores/produtos')
-const schemaCadastroCliente = require('./schemas/schemaCadastroCliente')
-const { cadastrarCliente, editarCliente, listarClientes, detalharCliente } = require('./controladores/clientes')
+const schemaCliente = require('./schemas/schemaCliente')
+const { cadastrarCliente, editarCliente, listarCliente, detalharCliente } = require('./controladores/clientes')
 
 const rotas = express()
 
 rotas.get('/categoria', listarCategorias)
-rotas.post('/usuario', validarUsuario(schemaCadastroUsuario), cadastrarUsuario)
-rotas.post('/login', validarUsuario(schemaLogin), loginUsuario)
+rotas.post('/usuario', validacao(schemaCadastroUsuario), cadastrarUsuario)
+rotas.post('/login', validacao(schemaLogin), loginUsuario)
 
 rotas.use(validarToken)
 
 rotas.get('/usuario', detalharUsuario)
-rotas.put('/usuario', validarUsuario(schemaCadastroUsuario), editarUsuario)
+rotas.put('/usuario', validacao(schemaCadastroUsuario), editarUsuario)
 
-rotas.post('/produto', validarUsuario(schemaCadastroProduto), cadastrarProduto)
-rotas.put('/produto/:id', validarUsuario(schemaCadastroProduto), editarProduto)
+rotas.post('/produto', validacao(schemaProduto), cadastrarProduto)
+rotas.put('/produto/:id', validacao(schemaProduto), editarProduto)
 rotas.get('/produto', listarProdutos)
 rotas.get('/produto/:id', detalharProduto)
 rotas.delete('/produto/:id', excluirProduto)
 
-rotas.post('/cliente', validarUsuario(schemaCadastroCliente), cadastrarCliente)
-rotas.put('/cliente/:id', validarUsuario(schemaCadastroCliente), editarCliente)
-rotas.get('/cliente', listarClientes)
+rotas.post('/cliente', validacao(schemaCliente), cadastrarCliente)
+rotas.put('/cliente/:id', validacao(schemaCliente), editarCliente)
+rotas.get('/cliente', listarCliente)
 rotas.get('/cliente/:id', detalharCliente)
 
 
