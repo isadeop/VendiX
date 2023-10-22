@@ -1,4 +1,4 @@
-const validarUsuario = (joiSchema) => async (req, res, next) => {
+const validacao = (joiSchema) => async (req, res, next) => {
   try {
     await joiSchema.validateAsync(req.body)
     next()
@@ -7,4 +7,4 @@ const validarUsuario = (joiSchema) => async (req, res, next) => {
   }
 }
 
-module.exports = validarUsuario
+module.exports = validacao

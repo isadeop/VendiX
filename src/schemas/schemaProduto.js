@@ -1,6 +1,6 @@
 const joi = require('joi')
 
-const schemaCadastroProduto = joi.object({
+const schemaProduto = joi.object({
     descricao: joi.string().required().messages({
         'any.required': 'O campo descrição é obrigatório!',
         'string.empty': 'O campo descrição é obrigatório!',
@@ -13,10 +13,11 @@ const schemaCadastroProduto = joi.object({
     }),
 
     valor: joi.number().integer().required().messages({
-        'number.base': 'O campo valor precisa ter um formato válido (números inteiros).',
-        'number.integer': 'O campo valor precisa ter um formato válido (números inteiros).',
+        'number.base': 'O campo valor precisa ter um formato válido (número inteiro).',
+        'number.integer': 'O campo valor precisa ter um formato válido (número inteiro).',
         'any.required': 'O campo valor é obrigatório!',
     }),
+
     categoria_id: joi.number().integer().required().messages({
         'number.base': 'O campo categoria_id precisa ter um formato válido (números inteiros).',
         'number.integer': 'O campo categoria_id precisa ter um formato válido (números inteiros).',
@@ -24,4 +25,4 @@ const schemaCadastroProduto = joi.object({
     })
 })
 
-module.exports = schemaCadastroProduto
+module.exports = schemaProduto
