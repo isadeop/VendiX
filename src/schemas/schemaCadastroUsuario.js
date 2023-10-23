@@ -12,10 +12,9 @@ const schemaCadastroUsuario = joi.object({
         'string.empty': 'O campo email é obrigatório!',
     }),
 
-    senha: joi.string().min(6).required().messages({
+    senha: joi.string().required().messages({
         'any.required': 'O campo senha é obrigatório!',
-        'string.empty': 'O campo senha é obrigatório!',
-        'string.min': 'A senha precisa conter 6 caracteres ou mais.',
+        'string.empty': 'O campo senha é obrigatório!'
     })
 })
 
