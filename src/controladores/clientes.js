@@ -15,7 +15,7 @@ const cadastrarCliente = async (req, res) => {
     if (validarCpf.length > 0) {
       return res.status(400).json({mensagem: 'Já existe cliente cadastrado com o CPF informado.'})
     }
-
+    
     const novoCliente = await knex('clientes')
       .insert({ nome, email, cpf, rua, numero, bairro, cidade, estado, cep })
       .returning('*')
@@ -27,7 +27,7 @@ const cadastrarCliente = async (req, res) => {
 }
 
 const editarCliente = async (req, res) => {
-  const { nome, email, cpf } = req.body
+  const { nome, email, cpf, rua, numero, bairro, cidade, estado, cep } = req.body
   const { id } = req.params
 
   try {
@@ -37,19 +37,23 @@ const editarCliente = async (req, res) => {
       return res.status(404).json({ mensagem: 'Cliente não encontrado.'})
     }
 
+
     const validarEmail = await knex("clientes").where({ email })
-    if (validarEmail.length > 0) {
+      
+    if ((validarEmail.length > 0) && (validarEmail[0].id) !== parseInt(id)) {
       return res.status(400).json({mensagem: 'Já existe cliente cadastrado com o e-mail informado.'})
     }
 
+
     const validarCpf = await knex('clientes').where({ cpf })
-    if (validarCpf.length > 0) {
+    
+    if ((validarCpf.length > 0) && (validarCpf[0].id)!==parseInt(id)) {
       return res.status(400).json({mensagem: 'Já existe cliente cadastrado com o CPF informado.'})
     }
 
     const clienteAtualizado = await knex('clientes')
       .where({ id })
-      .update({ nome, email, cpf })
+      .update({ nome, email, cpf,  rua, numero, bairro, cidade, estado, cep})
       .returning("*")
 
     if (!clienteAtualizado) {
