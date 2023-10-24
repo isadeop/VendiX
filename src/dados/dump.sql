@@ -11,11 +11,12 @@ descricao text not null
 );
 
 create table produtos (
-id serial primary key,
-descricao text not null unique,
+id serial primary key unique,
+descricao text not null,
 quantidade_estoque integer,
 valor integer,
-categoria_id integer references categorias(id)
+categoria_id integer references categorias(id),
+produto_imagem text
 );
 
 create table clientes (
@@ -69,3 +70,19 @@ values
 ('Fraldas Descartáveis', 1, 8000, 8),
 ('Mamadeira', 1, 3500, 8),
 ('Chupeta', 1, 2900, 8);
+
+create table pedidos (
+id serial primary key,
+cliente_id integer references clientes(id),
+observacao text,
+valor_total integer
+);
+
+create table pedido_produtos (
+id serial primary key,
+pedido_id integer references pedidos(id),
+produto_id integer references produtos(id),
+quantidade_produto integer not null,
+valor_produto integer
+);
+
