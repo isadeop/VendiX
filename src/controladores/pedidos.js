@@ -36,14 +36,16 @@ const cadastrarPedido = async (req, res) => {
     const pedido = await knex('pedidos').returning('id').insert({ cliente_id, observacao})
     
     for(let produto of pedido_produtos ) {
-      const pedidoProdutos = await knex('pedido_produtos').insert({
-        pedido_id: pedido[0].id, produto_id: produto.produto_id,
-        quantidade_produto: produto.quantidade_produto,
-        valor_produto: 0
-       }) 
-       return res.json(pedidoProdutos[0]);
-    }
-  
+        const [{valor}] = await knex("produtos").where({
+          id: produto.produto_id,
+        });
+        const pedidoProdutos = await knex('pedido_produtos').insert({
+          pedido_id: pedido[0].id, produto_id: produto.produto_id,
+          quantidade_produto: produto.quantidade_produto,
+          valor_produto: valor
+         }) 
+         return res.json();
+      }
   } catch (error) {
     return res
     .status(500)
