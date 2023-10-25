@@ -44,15 +44,45 @@ const cadastrarPedido = async (req, res) => {
           quantidade_produto: produto.quantidade_produto,
           valor_produto: valor
          }) 
+
+        //  const valorPorProduto = await knex('pedido_produtos').returning('valor_produto').where('produto_id','=', 'produto.produto_id')
+        //  console.log(valorPorProduto);
+        
          return res.json();
       }
+      
+  
   } catch (error) {
     return res
     .status(500)
-    .json({ mensagem: "erro interno do servidor" });
+    .json({ mensagem: error.message });
   }
 };
 
+
+const listarPedidos = async (req, res) => {
+  const { cliente_id } = req.query
+
+  try {
+    const pedidos = await knex('pedidos')
+    if (!cliente_id) {
+      return res.status(400).json(pedidos)
+    }
+
+    const clienteExiste = await knex('pedidos').where({ cliente_id }).first()
+    if (!clienteExiste) {
+      return res.status(404).json({ mensagem: 'Cliente não encontrado.' })
+    }
+
+    const listarPorCliente = await knex('pedidos').where({ cliente_id })
+
+    return res.status(200).json(listarPorCliente)
+
+  } catch (error) {
+    return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
+  }
+}
 module.exports = {
   cadastrarPedido,
+  listarPedidos
 };

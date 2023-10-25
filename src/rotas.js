@@ -8,7 +8,7 @@ const schemaProduto = require('./schemas/schemaProduto')
 const { cadastrarProduto, excluirProduto, detalharProduto, listarProdutos, editarProduto } = require('./controladores/produtos')
 const schemaCliente = require('./schemas/schemaCliente')
 const { cadastrarCliente, editarCliente, listarCliente, detalharCliente } = require('./controladores/clientes')
-const { cadastrarPedido } = require('./controladores/pedidos')
+const { cadastrarPedido, listarPedidos } = require('./controladores/pedidos')
 const schemaPedido = require('./schemas/schemaPedido')
 // const { enviarEmail } = require('./controladores/email')
 
@@ -36,6 +36,7 @@ rotas.get('/cliente', listarCliente)
 rotas.get('/cliente/:id', detalharCliente)
 
 rotas.post('/pedido',validacao(schemaPedido),cadastrarPedido)
+rotas.get('/pedido', listarPedidos)
 
 // rotas.post('/email', enviarEmail)
 
