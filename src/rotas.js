@@ -34,7 +34,7 @@ rotas.put('/cliente/:id', validacao(schemaCliente), editarCliente)
 rotas.get('/cliente', listarCliente)
 rotas.get('/cliente/:id', detalharCliente)
 
-rotas.post('/pedido',schemas(schemaPedido),cadastrarPedido)
+rotas.post('/pedido',validacao(schemaPedido),cadastrarPedido)
 
 
 module.exports = rotas
