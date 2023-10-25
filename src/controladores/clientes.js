@@ -1,4 +1,6 @@
 const knex = require("../conexão")
+const { enviarEmail } = require('./email')
+
 
 const cadastrarCliente = async (req, res) => {
   const { nome, email, cpf, rua, numero, bairro, cidade, estado, cep } = req.body

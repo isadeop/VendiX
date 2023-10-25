@@ -10,6 +10,7 @@ const schemaCliente = require('./schemas/schemaCliente')
 const { cadastrarCliente, editarCliente, listarCliente, detalharCliente } = require('./controladores/clientes')
 const { cadastrarPedido } = require('./controladores/pedidos')
 const schemaPedido = require('./schemas/schemaPedido')
+// const { enviarEmail } = require('./controladores/email')
 
 
 const rotas = express()
@@ -35,6 +36,8 @@ rotas.get('/cliente', listarCliente)
 rotas.get('/cliente/:id', detalharCliente)
 
 rotas.post('/pedido',validacao(schemaPedido),cadastrarPedido)
+
+// rotas.post('/email', enviarEmail)
 
 
 module.exports = rotas
