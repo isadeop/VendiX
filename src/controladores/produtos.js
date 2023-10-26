@@ -92,6 +92,13 @@ const excluirProduto = async (req, res) => {
     return res.status(400).json({ mensagem: 'O envio do ID é obrigatório.' })
   }
 
+  const existePedido = await knex('pedido_produtos').where({produto_id:id})
+  console.log(existePedido)
+
+  if(existePedido.length > 0){
+    return res.status(400).json({ mensagem: 'O produto não pode ser excluído pois existe um pedido aberto.' })
+  }
+
   try {
 
     const produtoExiste = await knex('produtos').where({ id }).first()
