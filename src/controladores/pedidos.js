@@ -31,57 +31,65 @@ const cadastrarPedido = async (req, res) => {
         return res
           .status(400)
           .json({ mensagem: "não existe no estoque a quantidade solicitada" });
-      }
+        }
     }
-
-    for (let produto of pedido_produtos) {
-      const [{ valor }] = await knex("produtos").where({
+    let valor_total = 0
+    for(let produto of pedido_produtos ) {
+      const [{valor}] = await knex("produtos").where({
         id: produto.produto_id,
       });
-      const pedido = await knex("pedidos")
-        .returning("id")
-        .insert({
-          cliente_id,
-          observacao,
-          valor_total: valor * produto.quantidade_produto,
-        }).returning('*');
-      const pedidoProdutos = await knex("pedido_produtos").insert({
-        pedido_id: pedido[0].id,
-        produto_id: produto.produto_id,
-        quantidade_produto: produto.quantidade_produto,
-        valor_produto: valor
-      });
-      return res.status(201).json(pedido);
+      valor_total += valor * produto.quantidade_produto
     }
-   
+    const pedido = await knex('pedidos').returning('id').insert({
+       cliente_id, observacao, valor_total: valor_total})
     
+  
+
+    for(let produto of pedido_produtos ) {
+        const [{valor}] = await knex("produtos").where({
+          id: produto.produto_id,
+        });
+        const pedidoProdutos = await knex('pedido_produtos').insert({
+          pedido_id: pedido[0].id, produto_id: produto.produto_id,
+          quantidade_produto: produto.quantidade_produto,
+          valor_produto: valor
+         }) 
+        
+        
+      }
+      return res.status(201).json();
+  
   } catch (error) {
-    return res.status(500).json({ mensagem: error.message });
+    return res
+    .status(500)
+    .json({ mensagem: error.message });
   }
 };
+
 
 const listarPedidos = async (req, res) => {
-  const { cliente_id } = req.query;
+  const { cliente_id } = req.query
 
   try {
-    const pedidos = await knex("pedidos");
+    const pedidos = await knex('pedidos')
     if (!cliente_id) {
-      return res.status(400).json(pedidos);
+      return res.status(400).json(pedidos)
     }
 
-    const clienteExiste = await knex("pedidos").where({ cliente_id }).first();
+    const clienteExiste = await knex('pedidos').where({ cliente_id }).first()
     if (!clienteExiste) {
-      return res.status(404).json({ mensagem: "Cliente não encontrado." });
+      return res.status(404).json({ mensagem: 'Cliente não encontrado.' })
     }
 
-    const listarPorCliente = await knex("pedidos").where({ cliente_id });
+    const listarPorCliente = await knex('pedidos').where({ cliente_id })
 
-    return res.status(200).json(listarPorCliente);
+    return res.status(200).json(listarPorCliente)
+
   } catch (error) {
-    return res.status(500).json({ mensagem: "Erro interno do servidor." });
+    return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
   }
-};
+}
 module.exports = {
   cadastrarPedido,
-  listarPedidos,
+  listarPedidos
 };
