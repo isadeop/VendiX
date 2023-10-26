@@ -11,6 +11,7 @@ const { cadastrarCliente, editarCliente, listarCliente, detalharCliente } = requ
 const { cadastrarPedido, listarPedidos } = require('./controladores/pedidos')
 const schemaPedido = require('./schemas/schemaPedido')
 // const { enviarEmail } = require('./controladores/email')
+const multer = require('./intermediario/multer')
 
 
 const rotas = express()
@@ -35,7 +36,7 @@ rotas.put('/cliente/:id', validacao(schemaCliente), editarCliente)
 rotas.get('/cliente', listarCliente)
 rotas.get('/cliente/:id', detalharCliente)
 
-rotas.post('/pedido',validacao(schemaPedido),cadastrarPedido)
+rotas.post('/pedido', validacao(schemaPedido), cadastrarPedido)
 rotas.get('/pedido', listarPedidos)
 
 // rotas.post('/email', enviarEmail)
