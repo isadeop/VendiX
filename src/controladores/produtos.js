@@ -1,20 +1,21 @@
 const knex = require("../conexão")
+const { uploadImagem } = require("../storage_arquivos")
 
 const cadastrarProduto = async (req, res) => {
   const { descricao, quantidade_estoque, valor, categoria_id } = req.body
 
   try {
 
-    const categoriaExiste = await knex('categorias').where({id: categoria_id})
+    const categoriaExiste = await knex('categorias').where({ id: categoria_id })
     if (categoriaExiste.length === 0) {
-      return res.status(404).json({mensagem:'Não foi possível realizar o cadastro pois a categoria informada não foi encontrada.'})
+      return res.status(404).json({ mensagem: 'Não foi possível realizar o cadastro pois a categoria informada não foi encontrada.' })
     }
 
     const produtoCadastrado = await knex('produtos').insert({ descricao, quantidade_estoque, valor, categoria_id }).returning('*')
     return res.status(201).json(produtoCadastrado)
-  
+
   } catch (error) {
-    return res.status(500).json({ mensagem: 'Erro interno do servidor.'})
+    return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
   }
 }
 
@@ -35,11 +36,11 @@ const editarProduto = async (req, res) => {
     }
 
     const produtoAtualizado = await knex('produtos').where({ id })
-    .update({ descricao, quantidade_estoque, valor, categoria_id })
-    .returning('*')
+      .update({ descricao, quantidade_estoque, valor, categoria_id })
+      .returning('*')
 
     return res.status(200).json({ mensagem: 'Produto atualizado com sucesso!' })
-  
+
   } catch (error) {
     return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
   }
@@ -106,10 +107,23 @@ const excluirProduto = async (req, res) => {
   }
 }
 
+// const cadastrarImagem = async (req, res) => {
+//   const { originalname, mimetype, buffer } = req.file
+//   const { id_produto } = req.params;
+//   try {
+//     console.log(id_produto)
+//     const imagem = await uploadImagem()
+//   } catch (error) {
+//     console.log(error.message)
+//     return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
+//   }
+// }
+
 module.exports = {
   cadastrarProduto,
   editarProduto,
   detalharProduto,
   listarProdutos,
   excluirProduto,
+  // cadastrarImagem
 }
