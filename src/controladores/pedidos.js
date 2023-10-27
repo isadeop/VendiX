@@ -72,7 +72,6 @@ const cadastrarPedido = async (req, res) => {
   }
 }
 
-
 const listarPedidos = async (req, res) => {
   const { cliente_id } = req.query
 
@@ -87,9 +86,24 @@ const listarPedidos = async (req, res) => {
       return res.status(404).json({ mensagem: 'Cliente não encontrado.' })
     }
 
-    const listarPorCliente = await knex('pedidos').where({ cliente_id })
+    const pedidosListado = await knex('pedidos').where({ cliente_id })
 
-    return res.status(200).json(listarPorCliente)
+    let listarTodos = []
+
+  for (const pedido of pedidosListado) {
+  const listarPorCliente= await knex.select(
+          'pedido_produtos.id',
+          'pedido_produtos.quantidade_produto',
+          'pedido_produtos.valor_produto',
+          'pedido_produtos.pedido_id',
+          'pedido_produtos.produto_id'
+      ).from('pedido_produtos').where('pedido_produtos.pedido_id', pedido.id)
+
+  let listarPedidosPorId = {pedido, pedido_produtos: listarPorCliente}
+   listarTodos.push(listarPedidosPorId)
+}
+
+return res.status(200).json(listarTodos)
 
   } catch (error) {
     return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
