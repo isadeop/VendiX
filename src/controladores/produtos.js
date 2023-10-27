@@ -115,7 +115,8 @@ const excluirProduto = async (req, res) => {
 }
 
 const cadastrarImagem = async (req, res) => {
-  const { file, id } = req
+  const { file} = req
+  const{id} = req.body
 
   try {
     const arquivo = await uploadImagem(
@@ -123,10 +124,9 @@ const cadastrarImagem = async (req, res) => {
       file.buffer,
       file.mimetype
     )
-    const imagem = await knex('produtos').insert({ produto_imagem: arquivo.url }).where({ id })
-    const imagemCadastrada = await knex('produtos').where({ id }).returning('*')
-    console.log(imagemCadastrada)
-    return res.status(201).json(imagemCadastrada)
+    const imagem = await knex('produtos').update({ produto_imagem: arquivo.url }).where({ id }).returning('*')
+    return res.status(201).json(imagem)
+    
   } catch (error) {
     console.log(error.message)
     return res.status(500).json({ mensagem: 'Erro interno do servidor' })
