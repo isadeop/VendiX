@@ -27,9 +27,12 @@ O objetivo deste projeto é criar uma API para um PDV (Frente de Caixa).
 - <a href="#✒️-autores"> Autores </a>
 
 ## :hammer: Funcionalidades do projeto
+<h3> 📌 Sprint 1 </h3>
 
-<strong> `Listar categorias`</strong>
-`GET\categoria`:
+<details>
+<summary>  Listar categorias </summary>
+
+`GET` `/categoria`
 
 <i>https://funny-sun-hat-bull.cyclic.cloud/categoria</i>
 
@@ -38,18 +41,24 @@ Permite listar todas as categorias dos produtos cadastradas no banco de dados.
  <p> * Informática  * Celulares  * Beleza e Perfumaria * Mercado * Livros e Papelaria * Brinquedos * Moda * Bebê * Jogos
 
 ![respostaListarCategorias](./src/assets/respostaListarCategorias.png)
+</details>
 
-<strong> `Cadastrar usuário`</strong>
-`POST\usuario`:
+<details>
+<summary>   Cadastrar usuário</summary>
+ 
+`POST` `/usuario`
 
 <i>https://funny-sun-hat-bull.cyclic.cloud/usuario</i>
 
 Esta funcionalidade será utilizada para cadastrar um novo usuário no sistema.
 
 ![CadastrarUsuario](./src/assets/CadastrarUsuario.png)
+</details>
 
-<strong> `Efetuar login do usuário`</strong>
-`POST\login`:
+<details>
+<summary>   Efetuar login do usuário </summary>
+ 
+`POST` `/login`
 
 <i>https://funny-sun-hat-bull.cyclic.cloud/login</i>
 
@@ -58,24 +67,124 @@ Esta funcionalidade permite o usuário cadastrado realizar o login no sistema.
 ![Login](./src/assets/Login.png)
 
 ⚠️ Para detalhar ou editar o perfil do usuário será exigido um token de autenticação no header da requisição
+</details>
 
-<strong> `Detalhar perfil do usuário`</strong>
-`GET\usuario`:
+<details>
+<summary>   Detalhar perfil do usuário </summary>
+`GET` `/usuario`
 
 <i>https://funny-sun-hat-bull.cyclic.cloud/usuario</i>
 
 Essa funcionalidade permite o usuário logado a visualizar os dados do seu próprio perfil, de acordo com a validação do token de autenticação.
 
 ![respostaDetalharUsuario](./src/assets/respostaDetalharUsuario.png)
+</details>
 
-<strong> `Editar perfil do usuário logado`</strong>
-`PUT\usuario`:
+<details>
+<summary>   Editar perfil do usuário logado</summary>
+`PUT` `/usuario`:
 
 <i>https://funny-sun-hat-bull.cyclic.cloud/usuario</i>
 
 Essa funcionalidade permite o usuário logado atualizar informações de seu próprio cadastro, de acordo com a validação do token de autenticação.
 
 ![editarUsuario](./src/assets/editarUsuario.png)
+</details>
+<br>
+<h3> 📌 Sprint 2 </h3>
+
+<details>
+<summary>   Cadastrar Produtos</summary>
+ 
+`POST` `/produto` 
+
+Permite ao usuário logado cadastrar um novo produto no sistema. É possivel tambem vincular uma imagem a um produto.
+
+</details>
+
+<details>
+<summary>   Editar dados do produto </summary>
+ 
+`PUT` `/produto/:id`
+
+ Permite o usuário logado a atualizar as informações de um produto cadastrado.
+</details>
+
+<details>
+<summary>   Listar produtos </summary>
+ 
+`GET` `/produto`
+
+Essa é a rota que será chamada quando o usuário logado quiser listar todos os produtos cadastrados
+</details>
+
+<details>
+<summary>   Detalhar Produto </summary>
+ 
+`GET` `/produto/:id`
+
+Permite o usuário logado obter um de seus produtos cadastrados, pesquisando pelo id.
+</details>
+
+<details>
+  <summary>   Excluir Produto por ID </summary>
+ 
+  `DELETE` `/produto/:id`
+  
+   Essa é a rota que será chamada quando o usuário logado quiser excluir um de seus produtos cadastrados.
+</details>
+
+<details>
+   <summary>  Cadastrar Cliente </summary>
+ 
+   `POST` `/cliente`
+
+   Permite usuário logado cadastrar um novo cliente no sistema.
+</details>
+
+<details>
+   <summary>Editar dados do cliente</summary>
+ 
+  `PUT` `/cliente/:id`
+
+  Permite o usuário realizar atualização de um cliente cadastrado.
+</details>
+
+<details>
+   <summary>Listar Clientes</summary>
+ 
+  `GET` `/cliente`
+
+  Essa é a rota que será chamada quando o usuário logado quiser listar todos os clientes cadastrados.
+</details>
+
+<details>
+   <summary> Detalhar Cliente </summary>
+ 
+  `GET` `/cliente/:id`
+
+  Essa é a rota que será chamada quando o usuário logado quiser obter um de seus clientes cadastrados.
+</details>
+
+<br>
+<h3> 📌 Sprint 3 </h3>
+<details>
+   <summary>Cadastrar Pedidos</summary>
+ 
+  `POST` `/pedido`
+
+  Permite cadastrar um novo pedido no sistema.  Após o pedido ser registrado, será enviado um e-mail para o cliente notificando que o pedido foi efetuado com sucesso.   
+</details>
+
+<details>
+   <summary>Listar Pedidos</summary>
+ 
+  `GET` `/pedido`
+
+  Permite listar todos os pedidos cadastrados. É possível listar todos os pedidos efetuados, e tambem filtrar os pedidos realizados por um determinado cliente pelo cliente_id. 
+</details>
+
+
 
 ## 📋 Como rodar este projeto
 
