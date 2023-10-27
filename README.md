@@ -131,7 +131,7 @@ Permite o usuário logado obter um de seus produtos cadastrados, pesquisando pel
  
   `DELETE` `/produto/:id`
   
-   Essa é a rota que será chamada quando o usuário logado quiser excluir um de seus produtos cadastrados.
+   Essa é a rota que será chamada quando o usuário logado quiser excluir um de seus produtos cadastrados. Quando o produto for excluído também será removida a imagem vinculada a ele na servidor de armazenamento.
 </details>
 
 <details>
