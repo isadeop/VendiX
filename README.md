@@ -184,6 +184,7 @@ Permite o usuário logado obter um de seus produtos cadastrados, pesquisando pel
   Permite listar todos os pedidos cadastrados. É possível listar todos os pedidos efetuados, e tambem filtrar os pedidos realizados por um determinado cliente pelo cliente_id. 
 </details>
 
+<br>
 
 
 ## 📋 Como rodar este projeto
