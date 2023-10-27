@@ -218,7 +218,9 @@ $ npm run start
 1. [JavaScript](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript)
 2. [Node](https://nodejs.org/pt-br/about)
 3. [ElephantSQL](https://www.elephantsql.com/docs/index.html)
-4. [Insomnia](https://docs.insomnia.rest/insomnia/get-started)
+4. [Blackbase](https://www.backblaze.com/)
+5. [Elastic Email](https://elasticemail.com/)
+6. [Insomnia](https://docs.insomnia.rest/insomnia/get-started)
 
 ## Controle de versão
 
