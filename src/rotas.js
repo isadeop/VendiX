@@ -10,7 +10,7 @@ const schemaCliente = require('./schemas/schemaCliente')
 const { cadastrarCliente, editarCliente, listarCliente, detalharCliente } = require('./controladores/clientes')
 const { cadastrarPedido, listarPedidos } = require('./controladores/pedidos')
 const schemaPedido = require('./schemas/schemaPedido')
-// const multer = require('./intermediario/multer')
+const multer = require('./intermediario/multer')
 
 
 const rotas = express()
@@ -26,7 +26,7 @@ rotas.put('/usuario', validacao(schemaCadastroUsuario), editarUsuario)
 
 rotas.post('/produto', validacao(schemaProduto), cadastrarProduto)
 rotas.put('/produto/:id', validacao(schemaProduto), editarProduto)
-// rotas.post('/imagem/:id', multer.single('imagem'), cadastrarImagem)
+rotas.post('/imagem', multer.single('produto_imagem'), cadastrarImagem)
 rotas.get('/produto', listarProdutos)
 rotas.get('/produto/:id', detalharProduto)
 rotas.delete('/produto/:id', excluirProduto)

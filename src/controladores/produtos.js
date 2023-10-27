@@ -92,10 +92,10 @@ const excluirProduto = async (req, res) => {
     return res.status(400).json({ mensagem: 'O envio do ID é obrigatório.' })
   }
 
-  const existePedido = await knex('pedido_produtos').where({produto_id:id})
+  const existePedido = await knex('pedido_produtos').where({ produto_id: id })
   console.log(existePedido)
 
-  if(existePedido.length > 0){
+  if (existePedido.length > 0) {
     return res.status(400).json({ mensagem: 'O produto não pode ser excluído pois existe um pedido aberto.' })
   }
 
@@ -114,17 +114,24 @@ const excluirProduto = async (req, res) => {
   }
 }
 
-// const cadastrarImagem = async (req, res) => {
-//   const { originalname, mimetype, buffer } = req.file
-//   const { id_produto } = req.params;
-//   try {
-//     console.log(id_produto)
-//     const imagem = await uploadImagem()
-//   } catch (error) {
-//     console.log(error.message)
-//     return res.status(500).json({ mensagem: 'Erro interno do servidor.' })
-//   }
-// }
+const cadastrarImagem = async (req, res) => {
+  const { file, id } = req
+
+  try {
+    const arquivo = await uploadImagem(
+      `imagens/${file.originalname}`,
+      file.buffer,
+      file.mimetype
+    )
+    const imagem = await knex('produtos').insert({ produto_imagem: arquivo.url }).where({ id })
+    const imagemCadastrada = await knex('produtos').where({ id }).returning('*')
+    console.log(imagemCadastrada)
+    return res.status(201).json(imagemCadastrada)
+  } catch (error) {
+    console.log(error.message)
+    return res.status(500).json({ mensagem: 'Erro interno do servidor' })
+  }
+}
 
 module.exports = {
   cadastrarProduto,
@@ -132,5 +139,5 @@ module.exports = {
   detalharProduto,
   listarProdutos,
   excluirProduto,
-  // cadastrarImagem
+  cadastrarImagem
 }

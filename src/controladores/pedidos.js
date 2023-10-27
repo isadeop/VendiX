@@ -16,51 +16,63 @@ const cadastrarPedido = async (req, res) => {
     }
 
     for (let produto of pedido_produtos) {
-      const produtoEncontrado = await knex("produtos").where({id: produto.produto_id});
+      const produtoEncontrado = await knex("produtos").where({ id: produto.produto_id });
       if (produtoEncontrado.length === 0) {
         return res.status(404).json({ mensagem: "produto solicitado não existe" });
       }
 
       if (produto.quantidade_produto > produtoEncontrado[0].quantidade_estoque) {
         return res.status(400).json({ mensagem: "não existe no estoque a quantidade solicitada" });
-        }
+      }
     }
 
     let valor_total = 0
-    for(let produto of pedido_produtos ) {
-      const [{valor}] = await knex("produtos").where({id: produto.produto_id,});
+    for (let produto of pedido_produtos) {
+      const [{ valor }] = await knex("produtos").where({ id: produto.produto_id, });
       valor_total += valor * produto.quantidade_produto
     }
 
-    const pedido = await knex('pedidos').returning('id').insert({cliente_id, observacao, valor_total: valor_total})
-    
+    const pedido = await knex('pedidos').returning('id').insert({ cliente_id, observacao, valor_total: valor_total })
 
-    for(let produto of pedido_produtos ) {
-        const [{valor}] = await knex("produtos").where({id: produto.produto_id});
 
-        const pedidoProdutos = await knex('pedido_produtos').insert({
-          pedido_id: pedido[0].id, produto_id: produto.produto_id,
-          quantidade_produto: produto.quantidade_produto,
-          valor_produto: valor
-         }) 
-        
-      }
+    for (let produto of pedido_produtos) {
+      const [{ valor }] = await knex("produtos").where({ id: produto.produto_id });
 
-      const emailCliente = (await knex('clientes').select('email').where({id:cliente_id})).shift()
-      const nomeCliente = (await knex('clientes').select('nome').where({id:cliente_id})).shift()
-
-      const html = await compiladorEmail('./src/arquivos_email/pedido.html', {nomeCliente})
-    
-      transportador.sendMail({
-        from: `${process.env.NAME_EMAIL} <${process.env.USER_EMAIL}>`,
-        to: `${nomeCliente.nome} <${emailCliente.email}>`,
-        subject: 'Pedido criado com sucesso!',
-        html,
+      const pedidoProdutos = await knex('pedido_produtos').insert({
+        pedido_id: pedido[0].id, produto_id: produto.produto_id,
+        quantidade_produto: produto.quantidade_produto,
+        valor_produto: valor
       })
-    
 
-      return res.status(201).json('O seu pedido foi criado com sucesso! Confira sua caixa de e-mail.');
-  
+    }
+
+    for (let produto of pedido_produtos) {
+      const quantidadeEstoque = await knex('produtos').where({
+        id: produto.produto_id
+      });
+      console.log(quantidadeEstoque);
+
+      const quantidade = await knex('produtos').update({
+        quantidade_estoque:
+          quantidadeEstoque[0].quantidade_estoque - produto.quantidade_produto
+      }).where({ id: produto.produto_id })
+    }
+
+    const emailCliente = (await knex('clientes').select('email').where({ id: cliente_id })).shift()
+    const nomeCliente = (await knex('clientes').select('nome').where({ id: cliente_id })).shift()
+
+    const html = await compiladorEmail('./src/arquivos_email/pedido.html', { nomeCliente })
+
+    transportador.sendMail({
+      from: `${process.env.NAME_EMAIL} <${process.env.USER_EMAIL}>`,
+      to: `${nomeCliente.nome} <${emailCliente.email}>`,
+      subject: 'Pedido criado com sucesso!',
+      html,
+    })
+
+
+    return res.status(201).json('O seu pedido foi criado com sucesso! Confira sua caixa de e-mail.');
+
   } catch (error) {
     return res.status(500).json({ mensagem: error.message });
   }
