@@ -53,10 +53,15 @@ const listarProdutos = async (req, res) => {
     const produtos = await knex('produtos')
 
     if (!categoria_id) {
-      return res.status(400).json(produtos)
+      return res.status(200).json(produtos)
     }
 
     const listarPorCategoria = await knex('produtos').where({ categoria_id })
+
+    if(listarPorCategoria.length === 0){
+      return res.status(404).json({mensagem: 'Categoria não encontrada.'})
+    }
+
     return res.status(200).json(listarPorCategoria)
 
   } catch (error) {
@@ -123,6 +128,9 @@ const cadastrarImagem = async (req, res) => {
   const{id} = req.body
 
   try {
+    if(!id){
+      return res.status(400).json({mensagem:'O id do produto é obrigatório.'})
+    }
     const arquivo = await uploadImagem(
       `imagens/${file.originalname}`,
       file.buffer,
@@ -130,6 +138,13 @@ const cadastrarImagem = async (req, res) => {
     )
   
     const imagem = await knex('produtos').update({ produto_imagem: arquivo.url }).where({ id }).returning('*')
+    
+    const existeProduto = await knex('produtos').where({id})
+
+    if(existeProduto.length === 0){
+      return res.status(404).json({mensagem:'Não existe produto cadastrado com esse id.'})
+    }
+
     return res.status(201).json(imagem)
 
   } catch (error) {

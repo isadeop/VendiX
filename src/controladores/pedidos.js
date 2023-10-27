@@ -20,9 +20,11 @@ const cadastrarPedido = async (req, res) => {
       if (produtoEncontrado.length === 0) {
         return res.status(404).json({ mensagem: 'O produto solicitado não existe!' })
       }
-
+      
       if (produto.quantidade_produto > produtoEncontrado[0].quantidade_estoque) {
-        return res.status(400).json({ mensagem: 'Não existe no estoque a quantidade de produto solicitada.' })
+        const produtoEmFalta = await (await knex('produtos').where({ id: produto.produto_id }).returning('descricao')).shift()
+        console.log(produtoEmFalta.descricao)
+        return res.status(400).json({ mensagem: `Não existe no estoque a quantidade de ${produtoEmFalta.descricao} solicitada.`})
       }
     }
 
