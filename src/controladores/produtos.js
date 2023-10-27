@@ -1,5 +1,5 @@
-const knex = require("../conexão")
-const { uploadImagem } = require("../storage_arquivos")
+const knex = require('../conexão')
+const { uploadImagem} = require('../storage_arquivos')
 
 const cadastrarProduto = async (req, res) => {
   const { descricao, quantidade_estoque, valor, categoria_id } = req.body
@@ -88,25 +88,29 @@ const detalharProduto = async (req, res) => {
 const excluirProduto = async (req, res) => {
   const { id } = req.params
 
+  try {
+    
   if (!id) {
     return res.status(400).json({ mensagem: 'O envio do ID é obrigatório.' })
   }
 
   const existePedido = await knex('pedido_produtos').where({ produto_id: id })
-  console.log(existePedido)
 
   if (existePedido.length > 0) {
     return res.status(400).json({ mensagem: 'O produto não pode ser excluído pois existe um pedido aberto.' })
   }
-
-  try {
 
     const produtoExiste = await knex('produtos').where({ id }).first()
     if (!produtoExiste) {
       return res.status(404).json({ mensagem: 'Produto não encontrado.' })
     }
 
-    const excluirProduto = await knex('produtos').where({ id }).delete()
+    const excluirArquivo = await knex ('produtos').where({id}).update({produto_imagem : null}).delete()
+   
+    if(!excluirArquivo){
+      return res.status(400).json({ mensagem: 'Não foi possível excluir o arquivo. Tente novamente.' })
+    }
+
     return res.status(200).json({ mensagem: 'O produto foi excluído.' })
 
   } catch (error) {
@@ -124,11 +128,11 @@ const cadastrarImagem = async (req, res) => {
       file.buffer,
       file.mimetype
     )
+  
     const imagem = await knex('produtos').update({ produto_imagem: arquivo.url }).where({ id }).returning('*')
     return res.status(201).json(imagem)
-    
+
   } catch (error) {
-    console.log(error.message)
     return res.status(500).json({ mensagem: 'Erro interno do servidor' })
   }
 }
